@@ -68,7 +68,7 @@ Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubun
 The default _VBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
 To do so, revise the Vagrantfile directive: _vb.memory = "1024"_.
 
-#### VBox provisioning
+#### VBox Provisioning
 _VBox_ provisioning is done by an _inline_ script, at the end of the _Vagrantfile_.  You may customize the provisioning as needed by editing that section.
 
 #### Port Mapping And Php-Server-Mon-Sys
@@ -80,4 +80,4 @@ To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which ma
 ## Etc
 Licensed per Apache License version 2.0
 
-Copyright 2015 Rex Addiscentis raddiscent@addiscent.com
+Copyright 2015 Rex Addiscentis raddiscentis@addiscent.com
