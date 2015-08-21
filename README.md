@@ -2,7 +2,7 @@
 A _Vagrant_ _VirtualBox_ which includes installed _Docker_ and _AWS CLI_ software.
 
 ### Use
-This _Vagrant_ _VBox_ is useful for quick testing of miscellaneous Docker-related experiments, or software evaluation, including deploys to _AWS_, (via the _AWS_ CLI).
+This _Vagrant_ _VBox_ is useful for quick testing of miscellaneous Docker-related experiments, or software evaluation, and supports the deployment of Docker containers from this _VBox_ to _AWS_, (via the _AWS_ CLI).
 
 This _Vagrant_ _VBox_ is easy to install, (assuming you already have _Vagrant_ and _VirtualBox_ installed).  Because it is a _Vagrant_ _VBox_, it is easy to remove; simply use the _vagrant destroy_ command, and the trash has been taken out.
 
@@ -65,10 +65,17 @@ Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubun
 
 ### Misc
 ##### VBox Memory Allocation
-The default _VBox_ memory allocation is 1GB, which may be changed by revising the Vagrantfile.  _VBox_ provisioning is done by an inline script, at the end of the _Vagrantfile_.
+The default _VBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
+To do so, revise the Vagrantfile directive: _vb.memory = "1024"_.
 
-##### Ports
-Port 28684 on the _VBox_ is mapped to port 28684 on the host, so _php-server-mon-sys_ works immediately after installation into this _VBox_.  You may change port mapping by revising the _Vagrantfile_.
+### VBox provisioning
+_VBox_ provisioning is done by an _inline_ script, at the end of the _Vagrantfile_.  You may customize the provisioning as needed by editing that section.
+
+##### Port Mapping And Php-Server-Mon-Sys
+To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which maps _Port 28684_ on the _VBox_ to _port 28684_ on the host.  Change port mapping by revising the _Vagrantfile_, editing the following directive as needed:
+
+  * config.vm.network "forwarded_port", guest: 28684, host: 28684
+
 
 ### Etc
 Licensed per Apache License version 2.0
