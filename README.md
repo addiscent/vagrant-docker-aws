@@ -48,10 +48,10 @@ Use the _vagrant destroy_ command to ensure _VBox_ disk storage files are remove
 ###### Note: Do not simply delete the files in the project directory, or orphaned _VBox_ files will accumulate in your VirtualBox vm storage area.  They cause no harm, but may use large amounts of unnecessary space on host storage.  You may delete orphaned _VBoxes_ using the VirtualBox GUI or VirtualBox CLI commands.
 
 ## Contents Of The VBox
-### Guest OS
+#### Guest OS
 Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubuntu/trusty64")
 
-### Additional software installed
+#### Additional software installed
 
   * Docker Engine - latest, (1.8.1, build d12ea79)
 
@@ -64,14 +64,14 @@ Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubun
   * UnZip 6.00
 
 ## Misc
-#### VBox Memory Allocation
+##### VBox Memory Allocation
 The default _VBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
 To do so, revise the Vagrantfile directive: _vb.memory = "1024"_.
 
-#### VBox Provisioning
+##### VBox Provisioning
 _VBox_ provisioning is done by an _inline_ script, at the end of the _Vagrantfile_.  You may customize the provisioning as needed by editing that section.
 
-#### Port Mapping And Php-Server-Mon-Sys
+##### Port Mapping And Php-Server-Mon-Sys
 To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which maps _Port 28684_ on the _VBox_ to _port 28684_ on the host.  Change port mapping by revising the _Vagrantfile_, editing the following directive as needed:
 
   * config.vm.network "forwarded_port", guest: 28684, host: 28684
