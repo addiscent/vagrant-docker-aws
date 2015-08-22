@@ -65,28 +65,43 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL, privileged: true
+    # set host name
     echo "vbox-docker-aws" > /etc/hostname &&
     echo "127.0.0.1  vbox-docker-aws" >> /etc/hosts &&
     hostname "vbox-docker-aws" &&
+
+    # install linux headers so Docker installation builds successfully
     apt-get update &&
     apt-get -y install linux-headers-3.13.0-62-generic &&
+
+    # set terminal prompt
     cp /vagrant/.bashrc /home/vagrant/ &&
+
+    # install AWS CLI
     curl -O https://bootstrap.pypa.io/get-pip.py &&
     python2 get-pip.py &&
     pip install awscli &&
     pip install --upgrade awscli &&
     aws --version &&
+
+    # install Docker
     curl -sSL https://get.docker.com/ | sh &&
     usermod -aG docker vagrant &&
     docker --version &&
+
+    # install Docker Compose
     curl -L https://github.com/docker/compose/releases/download/1.4.0/docker-compose-`uname -s`-`uname -m` \
       > /usr/local/bin/docker-compose &&
     chmod +x /usr/local/bin/docker-compose &&
     docker-compose --version &&
+
+    # install Docker Machine
     curl -L https://github.com/docker/machine/releases/download/v0.4.0/docker-machine_linux-amd64 \
       > /usr/local/bin/docker-machine &&
     chmod +x /usr/local/bin/docker-machine &&
     docker-machine --version &&
+
+    # intall Unzip
     apt-get install unzip &&
     unzip -v | grep "UnZip 6"
   SHELL
