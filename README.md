@@ -10,8 +10,8 @@ I use this Vagrant box for testing my _GitHub_ project _php-server-mon-sys_, and
 
 ## Installation Requirements
 
-  * Vagrant 1.7.2, installed
-  * VirtualBox 4.3.10, (or greater), installed
+  * Vagrant 1.8.1, installed
+  * VirtualBox 5.0, (or greater), installed
 
 ## Installation Instructions
 Make a project or scratch directory.  Then, clone the _GitHub_ repo, or download and unzip the _vagrant-docker-aws.zip_ file at:
@@ -31,16 +31,16 @@ In the _ssh_ terminal created by _vagrant ssh_, the terminal prompt will display
 Confirm successful installation by entering the following commands and noting the appropriate responses:
 
       $ docker --version
-      Docker version 1.8.1, build d12ea79
+      Docker version 1.11.2, build b9f10c9
 
       $ docker-machine --version
-      docker-machine version 0.4.0 (9d0dc7a)
+      docker-machine version 0.7.0, build a650a40
 
       $ docker-compose --version
-      docker-compose version: 1.4.0
+      docker-compose version 1.7.1, build 0a9ab35
 
       $ aws --version
-      aws-cli/1.7.46 Python/2.7.6 Linux/3.13.0-48-generic
+      aws-cli/1.10.36 Python/2.7.6 Linux/3.13.0-86-generic botocore/1.4.26
 
 ## Uninstallation
 Use the _vagrant destroy_ command to ensure _VBox_ disk storage files are removed from host storage.  After using the _vagrant destroy_ command, you may then delete any Vagrant-related files in the project directory from the host.
@@ -53,13 +53,13 @@ Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubun
 
 #### Additional software installed
 
-  * Docker Engine - latest, (1.8.1, build d12ea79)
+  * Docker Engine 1.11.2
 
-  * Docker Machine 0.4.0 (9d0dc7a)
+  * Docker Machine 0.7.0
 
-  * Docker Compose 1.4.0
+  * Docker Compose 1.7.1
 
-  * AWS CLI - latest, (aws-cli/1.7.45 Python/2.7.6 Linux/3.13.0-48-generic)
+  * AWS CLI - latest, (aws-cli/1.10.36 Python/2.7.6 Linux/3.13.0-86-generic botocore/1.4.26)
 
   * UnZip 6.00
 
@@ -80,4 +80,4 @@ To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which ma
 ## Etc
 Licensed per Apache License version 2.0
 
-Copyright 2015 Rex Addiscentis raddiscentis@addiscent.com
+Copyright 2016 Rex Addiscentis raddiscentis@addiscent.com

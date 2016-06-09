@@ -45,7 +45,7 @@ Vagrant.configure(2) do |config|
   #
   config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
-     vb.gui = true
+  #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
      vb.memory = "1024"
@@ -72,7 +72,11 @@ Vagrant.configure(2) do |config|
 
     # install linux headers so Docker installation builds successfully
     apt-get update &&
-    apt-get -y install linux-headers-3.13.0-62-generic &&
+    apt-get install -y apt-transport-https &&
+    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D &&
+    echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list &&
+    apt-get update &&
+    apt-get install -y linux-image-extra-$(uname -r) &&
 
     # set terminal prompt
     cp /vagrant/.bashrc /home/vagrant/ &&
@@ -85,24 +89,22 @@ Vagrant.configure(2) do |config|
     aws --version &&
 
     # install Docker
-    curl -sSL https://get.docker.com/ | sh &&
+    apt-get install -y docker-engine &&
     usermod -aG docker vagrant &&
     docker --version &&
 
     # install Docker Compose
-    curl -L https://github.com/docker/compose/releases/download/1.4.0/docker-compose-`uname -s`-`uname -m` \
-      > /usr/local/bin/docker-compose &&
+    curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose &&
     chmod +x /usr/local/bin/docker-compose &&
     docker-compose --version &&
 
     # install Docker Machine
-    curl -L https://github.com/docker/machine/releases/download/v0.4.0/docker-machine_linux-amd64 \
-      > /usr/local/bin/docker-machine &&
+    curl -L https://github.com/docker/machine/releases/download/v0.7.0/docker-machine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine &&
     chmod +x /usr/local/bin/docker-machine &&
     docker-machine --version &&
 
     # intall Unzip
-    apt-get install unzip &&
+    apt-get install -y unzip &&
     unzip -v | grep "UnZip 6"
   SHELL
 end
