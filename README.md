@@ -166,7 +166,7 @@ Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubun
 The default _VagrantBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
 To do so, revise this _Vagrantfile_ directive :
 
-    vb.memory = "1024"
+      vb.memory = "1024"
 
 Change from 1024 to, e.g., 512, or 2048, etc.  Take care to not exceed the host's amount of available real memory.
 
@@ -175,11 +175,11 @@ The following information is only relevant to users of _Php-Server-Mon-Sys_; if 
 
 To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which forwards _port 28684_ on the _VagrantBox_ to _port 28684_ on the host.  If necessary, change port mapping by revising the _Vagrantfile_, editing the following directive as needed:
 
-  * config.vm.network "forwarded_port", guest: 28684, host: 28684
+    config.vm.network "forwarded_port", guest: 28684, host: 28684
 
 As an example, to change the PSMS application service port, (HTTP port), from 28684 to 8888, revise the directive to :
 
-  * config.vm.network "forwarded_port", guest: 28684, host: 8888
+    config.vm.network "forwarded_port", guest: 28684, host: 8888
 
 
 #### Etc
