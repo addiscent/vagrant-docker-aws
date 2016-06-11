@@ -130,13 +130,9 @@ The most important of the commonly used commands are :
 #### Where To Go Frome Here?  There's Always A "However"
 As installed above, this _vagrantbox_ can be quite a useful tool.  "However", to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, "however", to do advanced work it is necessary to learn _vagrant_ command line usage, and the _Vagrantfile_ directives.  There are _vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  There are _Vagrantfile_ directives for setting the memory size of the instance, and for forwarding ports from inside the _vagrantbox_ into the host port space, and more.
 
-For more information, read the official documentation.
+For more information, read the official Vagrant documentation : https://www.vagrantup.com/docs/
 
-    Vagrant official - https://www.vagrantup.com/docs/
-
-_Vagrant_ allows convenient use of a very powerful tool, _VirtualBox_.  I highly recommend learning about and using _VirtualBox_, by itself :
-
-    VirtualBox official - https://www.virtualbox.org/manual/UserManual.html
+In addition to being valuable as a provider for _Vagrant_, _VirtualBox_ is very valuable even when used by itself : https://www.virtualbox.org/manual/UserManual.html
 
 #### When Ready For More Advanced Use
 For more advanced use, e.g., running an NGINX server or an experimental Rails project inside the _vagrantbox_, read _Vagrant's_ documentation about _Port Forwarding_, so you can view HTTP pages using your web browser, served from the _vagrantbox_.  Learn to do an easy modification to the _Vagrantfile_, and _walla_ (sic), you've got a quick-and-easy discardable local web-server which uses any port you choose, (within constraints). https://www.vagrantup.com/docs/networking/forwarded_ports.html
