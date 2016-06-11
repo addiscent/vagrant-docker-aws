@@ -68,30 +68,28 @@ You may need to know the following credentials for some admin activities in this
 Confirm successful installation of Docker and AWS CLI by entering the following commands and noting the appropriate results:
 
       $ docker --version
-      Docker version 1.11.2, build b9f10c9
+          Docker version 1.11.2, build b9f10c9
 
       $ docker-compose --version
-      docker-compose version 1.7.1, build 0a9ab35
+          docker-compose version 1.7.1, build 0a9ab35
 
       $ docker-machine --version
-      docker-machine version 0.7.0, build a650a40
+          docker-machine version 0.7.0, build a650a40
 
       $ aws --version
-      aws-cli/1.10.37 Python/2.7.6 Linux/3.13.0-87-generic botocore/1.4.27
+          aws-cli/1.10.37 Python/2.7.6 Linux/3.13.0-87-generic botocore/1.4.27
 
 #### Explore The New VagrantBox
-The the OS of the newly created _vagrantbox_ is _Ubuntu Server 14.04_.  Explore it in whatever manner you wish, it's simply yet another Linux host, which happens to already have a set of Docker suite and AWS CLI commands installed. Do things you would never try on a host which took you four hours, (or four days), to install and configure.  It's not sacred, it's disposable; if you corrupt it, you may _vagrant destroy_ it, (see _Uninstallation_ below), and recreate a new instance of it just as before, in less than ten minutes.
+The the OS of the newly created _vagrantbox_ is _Ubuntu Server 14.04_.  Explore it in whatever manner you wish, it's simply yet another Linux host, which happens to already have a set of Docker suite and AWS CLI commands installed. Try things you would never feel comfortable doing on a host which in the past took two hours, (or two days), to install and configure.  It's not sacred, it's discardable; if you corrupt it, you may _vagrant destroy_ it, (see _Uninstallation_ below), and recreate a new instance of it just as before, in less than ten minutes.
 
-For more advanced use, e.g., running an NGINX server or an experimental Rails project inside the _vagrantbox_, read _Vagrant's_ documentation about "Port Forwarding", so you can view HTTP pages served from the _vagrantbox_, using your web browser.  Learn to do an easy modification to the _Vagrantfile_, and _walla_ (sic), you've got a local web-server which uses any port you choose, (within constraints). https://www.vagrantup.com/docs/networking/forwarded_ports.html
-
-When you are ready, return to your host terminal prompt using the usual method :
+When you are finished exploring and ready to shut it down, return to your host terminal prompt using the usual method :
 
       $ exit
-      logout
-      Connection to 127.0.0.1 closed.
+          logout
+          Connection to 127.0.0.1 closed.
 
 #### Uninstallation
-The _vagrant destroy_ command removes the _vagrantbox_ instance files, (the _sysroot_ volume of the _Ubuntu Server 14.04_ _vagrantbox_ itself), from storage on the host.  Any changes previously made to this particular _vagrantbox_ configuration, (e.g., by using a _vagrant ssh_ session to do work such as editing/creating files on the _vagrantbox_ _sysroot_ volume), will be destroyed along with the _vagrantbox_.
+The _vagrant destroy_ command removes the _vagrantbox_ instance files, (including the _sysroot_ volume of the _Ubuntu Server 14.04_ _vagrantbox_ itself), from storage on the host.  Any changes previously made to this particular _vagrantbox_ configuration, (e.g., by using a _vagrant ssh_ session to do work such as editing/creating files on the _vagrantbox_ _sysroot_ volume), will be destroyed along with the _vagrantbox_.
 
 The _vagrant destroy_ command does _not_ delete the _vagrant-docker-aws-master_ work/project directory, nor any of the files in that directory :
 
@@ -130,7 +128,7 @@ The most important of the commonly used commands are :
       vagrant box
 
 #### Where To Go Frome Here?  There's Always A "However"
-As is, "right off the shelf", this _vagrantbox_ can be quite a useful tool.  "However", to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, "however", to do advanced work it is necessary to learn _vagrant_ command line usage, and the _Vagrantfile_ directives.  There are _vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  There are _Vagrantfile_ directives for setting the memory size of the instance, and for forwarding ports from inside the _vagrantbox_ into the host port space, and more.
+As installed above, this _vagrantbox_ can be quite a useful tool.  "However", to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, "however", to do advanced work it is necessary to learn _vagrant_ command line usage, and the _Vagrantfile_ directives.  There are _vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  There are _Vagrantfile_ directives for setting the memory size of the instance, and for forwarding ports from inside the _vagrantbox_ into the host port space, and more.
 
 For more information, read the official documentation.
 
@@ -141,6 +139,8 @@ _Vagrant_ allows convenient use of a very powerful tool, _VirtualBox_.  I highly
     VirtualBox official - https://www.virtualbox.org/manual/UserManual.html
 
 #### When Ready For More Advanced Use
+For more advanced use, e.g., running an NGINX server or an experimental Rails project inside the _vagrantbox_, read _Vagrant's_ documentation about "Port Forwarding", so you can view HTTP pages served from the _vagrantbox_, using your web browser.  Learn to do an easy modification to the _Vagrantfile_, and _walla_ (sic), you've got a quick-and-easy discardable local web-server which uses any port you choose, (within constraints). https://www.vagrantup.com/docs/networking/forwarded_ports.html
+
 You may also change the _Vagrantfile_ to customize the configuration of the OS during its initial creation, (provisioning).  An example of provisioning may be seen in the _Vagrantfile_ used to create this _vagrantbox_.  Instead of laboriously creating a "custom pet" _vagrantbox_ instance by manually installing/configuring more software after it is initially created, modify the _Vagrantfile_ so that the _vagrantbox_ is already configured the way you want it immmediately after executing _vagrant up_ the first time.  If you do it this way, you lose the fear you had in the past; the fear that you can't try this or that, because it's "too risky" and may bork your environment.
 
 So, inspect the _Vagrantfile_.  Change it any way you wish, experiment with it, customize it to do what you want to do, (or want to learn to do).  If you fubar a _vagrantbox_ you are creating, you can simply _vagrant destroy_ it, and recreate it.  Create as many special purpose _vagrantboxes_ as you wish.
