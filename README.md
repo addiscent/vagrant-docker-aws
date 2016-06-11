@@ -127,14 +127,7 @@ The most important of the commonly used commands are :
       vagrant destroy
       vagrant box
 
-#### Where To Go Frome Here?  There's Always A "However"
-As installed above, this _vagrantbox_ can be quite a useful tool.  "However", to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, "however", to do advanced work it is necessary to learn _vagrant_ command line usage, and the _Vagrantfile_ directives.  There are _vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  There are _Vagrantfile_ directives for setting the memory size of the instance, and for forwarding ports from inside the _vagrantbox_ into the host port space, and more.
-
-For more information, read the official Vagrant documentation : https://www.vagrantup.com/docs/
-
-In addition to being valuable as a provider for _Vagrant_, _VirtualBox_ is very valuable even when used by itself : https://www.virtualbox.org/manual/UserManual.html
-
-##### VagrantBox Memory Allocation
+#### VagrantBox Memory Allocation
 The default _VagrantBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
 To do so, revise this _Vagrantfile_ directive :
 
@@ -146,10 +139,10 @@ After revising that directive in the _Vagrantfile_, reload the _vagrantbox_ by e
 
       $ vagrant reload
 
-##### Port Forwarding
-If you wish to run an NGINX server or an experimental Rails project inside the _vagrantbox_, read _Vagrant's_ documentation about _Port Forwarding_, so you can view HTTP pages using your web browser, served from the _vagrantbox_.  Learn to do an easy modification to the _Vagrantfile_, and _walla_ (sic), you've got a quickly-installable and easily-discardable local web-server which uses any port you choose, (within constraints) : https://www.vagrantup.com/docs/networking/forwarded_ports.html
+#### Port Forwarding
+If you wish to run a server or app inside _vagrantbox_ which does port IO, such as an NGINX server or a Rails thin web-server, you must configure _Port Forwarding_ on _vagrantbox_.  For a complete discussion, see _Vagrant's_ documentation about _Port Forwarding_ : https://www.vagrantup.com/docs/networking/forwarded_ports.html
 
-To support _php-server-mon-sys_ project, (https://github.com/addiscent), the _Vagrantfile_ contains a directive which forwards _port 28684_ on the _VagrantBox_ to _port 28684_ on the host.
+To support _php-server-mon-sys_ project, (https://github.com/addiscent), the _Vagrantfile_ contains a directive which forwards _port 28684_ on the _vagrantbox_ to _port 28684_ on the host.
 
 If port forwarding is required for your project, the following _Vagrantfile_ directive is used to configure it.  If port forwarding is not needed for your project, you may remove the directive, by either "commenting it out", or deleting it.
 
@@ -165,14 +158,28 @@ After revising that directive in the _Vagrantfile_, reload the _vagrantbox_ by e
 
       $ vagrant reload
 
+#### Where To Go Frome Here?
+As installed above, this _vagrantbox_ can be quite a useful tool.  In order to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, but, to do advanced work it is necessary to learn _vagrant_ command line usage, and the _Vagrantfile_ directives.  There are _vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  The _Vagrantfile_ directives noted above are just a few of the many avaialable.
+
+For more information, read the official _Vagrant_ documentation : https://www.vagrantup.com/docs/
+
+In addition to being a provider for _Vagrant_, _VirtualBox_ is very valuable even when used by itself : https://www.virtualbox.org/manual/UserManual.html
+
 #### When Ready For More Advanced Use
-A _vagrantbox_ configuration option allows a host to "share" a directory with a _vagrantbox_.  This allows both the host and the _vagrantbox_ to operate on the same directories and files, (read, write, etc).  As an example, a software developer may edit files on the host, and a _vagrantbox_ server-process may use them in some manner, e.g., the _vagrantbox_ contains a web server, or is some other type of producer-consumer.  This technique is used on the _vagrant-ruby-rails_ project, (https://github.com/addiscent/vagrant-ruby-rails).  For more information, refer to the _Vagrantfile_ directive named "config.vm.synced_folder", in the _Vagrant_ documentation.
+##### Shared Storage
+There exists a _vagrantbox_ configuration option which allows a directory to be "shared" between the host and a _vagrantbox_.  This allows both the host and the _vagrantbox_ to operate on the same directories and files, (read, write, etc).  As an example, a software developer may edit web page source files on the host, and a _vagrantbox_ HTTP server may deliver them.  This technique is used on the _vagrant-ruby-rails_ project, (https://github.com/addiscent/vagrant-ruby-rails).  For more information, refer to the _Vagrantfile_ directive named "config.vm.synced_folder", in the _Vagrant_ documentation.
 
-You may also change the _Vagrantfile_ to do non-trivial configuration of the OS during its initial creation, a process known as provisioning.  Try not to make it a habit to laboriously create a "custom pet" _vagrantbox_ instance which is configured by manually installing more software after it is initially created.  Instead modify the _Vagrantfile_ so that immmediately after executing _vagrant up_ the first time, the _vagrantbox_ is already configured the way you want it.  _Vagrant-docker-aws_ provisioning is done by an _inline_ script, at the end of the _Vagrantfile_.  You may customize the provisioning as needed by editing that section.  An example of what you may wish to include in the provisioning script is the installation of Git.
+##### Custom Provisioning
+The _Vagrantfile_ may also do non-trivial configuration of the OS on the _vagrantbox_ during its initial creation, a process known as provisioning.
 
-If you create your own new types of _vagrantboxes_, you may begin to lose a fear you had in the past, the fear that you can't try this or that, because it's "too risky" and may bork your new carefully hand-modified _vagrantbox_.  So, inspect the _Vagrantfile_.  Experiment with it, customize it to create a _vagrantbox_ which does what you need, from the first _vagrant up_.  If you fubar a _vagrantbox_ you are using, you can simply _vagrant destroy_ it, and then "_vagrant up_" a new one, provisioned according to your need.
+In order to save yourself time and effort, try to make it a habit to _not_ laboriously create a "pet" _vagrantbox_ instance which is configured by manually installing more software after it is initially created.  Instead modify the _Vagrantfile_ so that immmediately after executing _vagrant up_ the first time, the _vagrantbox_ is already configured the way you need it.
 
-The _Port Forwarding_ feature of _Vagrant_ allows for some interesting experimentation with more advanced architectures. If the host has enough CPU cores and memory, multiple _vagrantboxes_ may be run concurrently.  "However", keep in mind that feeble hardware need not apply for this job.  Every _vagrantbox_ which is executing at any given moment requires a dedicated CPU core and its own memory.  The good news is if you have an eight core CPU host with 8GB of memory, you can experiment with creating your own "virtual server cluster".  If you are a student of distributed computing, Internet, and Cloud technologies, you can learn about Virtual Private Cloud networks by configuring and running a networked cluster of servers, all entirely on a single computer, (fair warning: not simple!).  It's a very inexpensive way to teach yourself about advanced computing architectures, which can be implemented in the "real world", e.g., on AWS, or a company's networked hardware.
+_Vagrant-docker-aws_ provisioning is performed by an _inline_ script, at the end of the _Vagrantfile_.  You may customize the provisioning as needed by editing that section.  An example of what you may wish to include in the provisioning script is the installation of Git.
+
+If you create your own new types of _vagrantboxes_, you may begin to lose a common fear you had in the past, the fear that you can't try "this or that", because it's "too risky" and may bork your new carefully hand-modified _vagrantbox_.  So, study the _Vagrantfile_ and related documentation.  Experiment with it, customize it to create a _vagrantbox_ which does what you need, from the first _vagrant up_.  Let your mind rest easy, knowing that if you fubar a _vagrantbox_ you are using, you can simply _vagrant destroy_ it, and then quickly "_vagrant up_" a new one, provisioned according to your need.
+
+##### Advanced Architectures
+The _Port Forwarding_ feature of _Vagrant_ allows for some interesting experimentation with more advanced architectures. If the host has enough CPU cores and memory, multiple _vagrantboxes_ may be run concurrently.  Keep in mind that feeble hardware need not apply for this job;  every _vagrantbox_ which is executing at any given moment requires a dedicated CPU core and its own memory.  The good news is if you have a four core CPU host with 4GB of memory, you can experiment with creating your own "virtual server cluster".  If you are a student of _Distributed Computing_, Internet, and _Cloud_ technologies, you can learn about _Virtual Private Cloud_ networks by configuring and running your own networked cluster of servers, all entirely on a single computer, (fair warning: not simple!).  It's a very inexpensive way to teach yourself about advanced computing architectures which can be implemented in the "real world", e.g., on AWS, or a company's networked hardware.
 
 #### Etc
 Licensed per Apache License version 2.0
