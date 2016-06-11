@@ -82,7 +82,7 @@ Confirm successful installation of Docker and AWS CLI by entering the following 
 ##### Explore The New VagrantBox
 The the OS of the newly created _vagrantbox_ is _Ubuntu Server 14.04_.  Explore it in whatever manner you wish, it's simply yet another Linux host, which happens to already have a set of Docker suite and AWS CLI commands installed. Do things you would never try on a host which took you four hours, (or four days), to install and configure.  It's not sacred, it's disposable; if you corrupt it, you may _vagrant destroy_ it, (see _Uninstallation_ below), and recreate a new instance of it just as before, in less than ten minutes.
 
-For more advanced use, e.g., running an NGINX server or an experimental Rails project inside the _vagrantbox_, read Vagrant's documentation about "Port Forwarding", so you can view HTTP pages served from the _vagrantbox_, using your web browser.  Learn to do an easy modification to the _Vagrantfile_, and _walla_ (sic), you've got a local web-server which uses any port you choose, (which doesn't conflict with the Apache HTTP port or Rails thin server you were already using on your host). https://www.vagrantup.com/docs/networking/forwarded_ports.html
+For more advanced use, e.g., running an NGINX server or an experimental Rails project inside the _vagrantbox_, read _Vagrant's_ documentation about "Port Forwarding", so you can view HTTP pages served from the _vagrantbox_, using your web browser.  Learn to do an easy modification to the _Vagrantfile_, and _walla_ (sic), you've got a local web-server which uses any port you choose, (within constraints). https://www.vagrantup.com/docs/networking/forwarded_ports.html
 
 When you are ready, return to your host terminal prompt using the usual method :
 
@@ -91,23 +91,43 @@ When you are ready, return to your host terminal prompt using the usual method :
       Connection to 127.0.0.1 closed.
 
 ### Uninstallation
-The _vagrant destroy_ command removes the _vagrantbox_ instance files, (the _sysroot_ volume of the Ubuntu Server 14.04 _vagrantbox_ itself), from storage on the host.  Any changes previously made to this particular _vagrantbox_ configuration, (e.g., by using a _vagrant ssh_ session to do work such as editing/creating files on the _vagrantbox_ _sysroot_ volume), will be destroyed along with the _vagrantbox_.
+The _vagrant destroy_ command removes the _vagrantbox_ instance files, (the _sysroot_ volume of the _Ubuntu Server 14.04_ _vagrantbox_ itself), from storage on the host.  Any changes previously made to this particular _vagrantbox_ configuration, (e.g., by using a _vagrant ssh_ session to do work such as editing/creating files on the _vagrantbox_ _sysroot_ volume), will be destroyed along with the _vagrantbox_.
 
-The _vagrant destroy_ command does _not_ delete the _vagrant-docker-aws_ work/project directory, nor any of the files in that directory :
+The _vagrant destroy_ command does _not_ delete the _vagrant-docker-aws-master_ work/project directory, nor any of the files in that directory :
 
       $ cd ~/vda-test/vagrant-docker-aws-master
       $ vagrant destroy
+            default: Are you sure you want to destroy the 'default' VM? [y/N] y
+        ==> default: Forcing shutdown of VM...
+        ==> default: Destroying VM and associated drives...
+
       $ ls -al
-          drwxrwxr-x 3 usr grp 4.0K Jun 10 16:17 .vagrant
           -rw-rw-r-- 1 usr grp 3.9K Jun  9 05:46 .bashrc
           -rw-rw-r-- 1 usr grp   13 Jun  9 05:46 .gitignore
           -rw-rw-r-- 1 usr grp  12K Jun  9 05:46 LICENSE
           -rw-rw-r-- 1 usr grp 3.5K Jun  9 05:46 README.md
+          drwxrwxr-x 3 usr grp 4.0K Jun 10 16:17 .vagrant
           -rw-rw-r-- 1 usr grp 4.5K Jun  9 05:46 Vagrantfile
 
-After using the _vagrant destroy_ command, you may then delete from the host the _vagrantbox_ home directory of _vagrant-docker-aws_, or selected files.
+After using the _vagrant destroy_ command, you may then delete from the host the _vagrant-docker-aws-master_ directory, or selected files.
 
-###### Note: Use the _vagrant destroy_ command before deleting a _vagrantbox's_ files or directory; do not simply delete the files in the project directory.  Otherwise, orphaned _VirtualBox_ instance files will accumulate in your VirtualBox vm storage area.  They cause no harm, but may consume large amounts of unnecessary space on host storage.  You may delete orphaned _VirtualBoxes_ using the VirtualBox GUI or VirtualBox CLI commands.
+###### Note: Use the _vagrant destroy_ command before deleting a _vagrantbox's_ files or directory; do not simply delete the files in the project directory.  Otherwise, orphaned _VirtualBox_ instance files will accumulate in your VirtualBox VM storage directory.  They cause no harm, but may consume large amounts of unnecessary space on host storage.  You may delete orphaned _VirtualBoxes_ using the _VirtualBox GUI_ or _VirtualBox CLI_ commands.
+
+
+##### Important Common Vagrant Commands
+
+The most important of the commonly used commands are :
+
+  vagrant help
+  vagrant up
+  vagrant status
+  vagrant global-status
+  vagrant port
+  vagrant suspend
+  vagrant resume
+  vagrant halt
+  vagrant destroy
+  vagrant box
 
 ### Where To Go Frome Here?  There's Always A "However"
 As is, "right off the shelf", this _vagrantbox_ can be quite a useful tool.  "However", to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, "however", to do advanced work it is necessary to learn _vagrant_ command line usage, and the _Vagrantfile_ directives.  There are _vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  There are _Vagrantfile_ directives for setting the memory size of the instance, and for forwarding ports from inside the _vagrantbox_ into the host port space, and more.
