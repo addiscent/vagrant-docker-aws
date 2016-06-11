@@ -159,24 +159,26 @@ After revising that directive in the _Vagrantfile_, reload the _vagrantbox_ by e
       $ vagrant reload
 
 #### Where To Go Frome Here?
-As installed above, this _vagrantbox_ can be quite a useful tool.  In order to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, but, to do advanced work it is necessary to learn _vagrant_ command line usage, and the _Vagrantfile_ directives.  There are _vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  The _Vagrantfile_ directives noted above are just a few of the many avaialable.
+As installed above, this _vagrantbox_ can be a useful tool, but it has the potential to do much more.
+
+In order to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, but, to do advanced work it is necessary to learn _vagrant_ command line usage, (such as listed above).  It is also necessary to become familiar with the _Vagrantfile_ directives; the _Vagrantfile_ directives noted above are just a few of the many available.
 
 For more information, read the official _Vagrant_ documentation : https://www.vagrantup.com/docs/
 
 In addition to being a provider for _Vagrant_, _VirtualBox_ is very valuable even when used by itself : https://www.virtualbox.org/manual/UserManual.html
 
-#### When Ready For More Advanced Use
+#### Advanced Use
 ##### Shared Storage
-There exists a _vagrantbox_ configuration option which allows a directory to be "shared" between the host and a _vagrantbox_.  This allows both the host and the _vagrantbox_ to operate on the same directories and files, (read, write, etc).  As an example, a software developer may edit web page source files on the host, and a _vagrantbox_ HTTP server may deliver them.  This technique is used on the _vagrant-ruby-rails_ project, (https://github.com/addiscent/vagrant-ruby-rails).  For more information, refer to the _Vagrantfile_ directive named "config.vm.synced_folder", in the _Vagrant_ documentation.
+There exists a _vagrantbox_ configuration option which allows a file-system directory to be "shared" between the host and a _vagrantbox_.  This allows both the host and the _vagrantbox_ to operate on the same directories and files, (read, write, etc).  As an example, a software developer may edit web page source files on the host, and a _vagrantbox_ HTTP server may deliver them.  This technique is used on the _vagrant-ruby-rails_ project, (https://github.com/addiscent/vagrant-ruby-rails).  For more information, refer to the _Vagrantfile_ directive named "config.vm.synced_folder", in the _Vagrant_ documentation.
 
 ##### Custom Provisioning
-The _Vagrantfile_ may also do non-trivial configuration of the OS on the _vagrantbox_ during its initial creation, a process known as provisioning.
+The _Vagrantfile_ may also be used to do non-trivial configuration of the OS on the _vagrantbox_ during its initial creation, a process known as _Provisioning_.
 
-In order to save yourself time and effort, try to make it a habit to _not_ laboriously create a "pet" _vagrantbox_ instance which is configured by manually installing more software after it is initially created.  Instead modify the _Vagrantfile_ so that immmediately after executing _vagrant up_ the first time, the _vagrantbox_ is already configured the way you need it.
+In order to save yourself time and effort, try to make it a habit to _not_ laboriously create a "pet" _vagrantbox_ instance which is configured by manually installing more "infrastructure" software after it is initially created.  Instead, modify the _Vagrantfile_ with directives and script commands. By doing so, after executing _vagrant up_ the first time, the _vagrantbox_ is already configured the way you need it.
 
 _Vagrant-docker-aws_ provisioning is performed by an _inline_ script, at the end of the _Vagrantfile_.  You may customize the provisioning as needed by editing that section.  An example of what you may wish to include in the provisioning script is the installation of Git.
 
-If you create your own new types of _vagrantboxes_, you may begin to lose a common fear you had in the past, the fear that you can't try "this or that", because it's "too risky" and may bork your new carefully hand-modified _vagrantbox_.  So, study the _Vagrantfile_ and related documentation.  Experiment with it, customize it to create a _vagrantbox_ which does what you need, from the first _vagrant up_.  Let your mind rest easy, knowing that if you fubar a _vagrantbox_ you are using, you can simply _vagrant destroy_ it, and then quickly "_vagrant up_" a new one, provisioned according to your need.
+If you create your own new types of _vagrantboxes_, you may begin to lose a common fear you had in the past, the fear that you "can't try this or that", because it's too risky and may bork your new carefully hand-modified _vagrantbox_.  So, study the _Vagrantfile_ and related documentation.  Experiment with it, customize it to create a _vagrantbox_ which does what you need, from the first _vagrant up_.  Let your mind rest easy, knowing that if you fubar a _vagrantbox_ you are using, you can simply _vagrant destroy_ it, and then quickly "_vagrant up_" a new one, provisioned according to your need.
 
 ##### Advanced Architectures
 The _Port Forwarding_ feature of _Vagrant_ allows for some interesting experimentation with more advanced architectures. If the host has enough CPU cores and memory, multiple _vagrantboxes_ may be run concurrently.  Keep in mind that feeble hardware need not apply for this job;  every _vagrantbox_ which is executing at any given moment requires a dedicated CPU core and its own memory.  The good news is if you have a four core CPU host with 4GB of memory, you can experiment with creating your own "virtual server cluster".  If you are a student of _Distributed Computing_, Internet, and _Cloud_ technologies, you can learn about _Virtual Private Cloud_ networks by configuring and running your own networked cluster of servers, all entirely on a single computer, (fair warning: not simple!).  It's a very inexpensive way to teach yourself about advanced computing architectures which can be implemented in the "real world", e.g., on AWS, or a company's networked hardware.
