@@ -147,7 +147,7 @@ So, inspect the _Vagrantfile_.  Change it any way you wish, experiment with it, 
 
 The _Port Forwarding_ feature of _Vagrant_ allows for some interesting experimentation with more advanced architectures. If the host has enough memory and CPU cores, multiple _vagrantboxes_ may be run concurrently.  "However", keep in mind that weak hardware need not apply for this job.  For every _vagrantbox_ which is executing at any given moment, it requires a CPU core, and more memory.  The good news is if you have an 8 core host with 8GB of memory, you can experiment with creating your own "four-server cluster".  That sort of thing is easier to create and manage on AWS, but, AWS EC2 instances are paid for by the minute, after giving AWS your credit card number.
 
-#### Contents Of The VirtualBox
+#### Contents Of The VagrantBox
 ##### Guest OS
 Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubuntu/trusty64")
 
@@ -164,23 +164,28 @@ Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubun
   * UnZip 6.00
 
 #### Misc
-##### VirtualBox Memory Allocation
-The default _VirtualBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
-To do so, revise this Vagrantfile directive :
+##### VagrantBox Memory Allocation
+The default _VagrantBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
+To do so, revise this _Vagrantfile_ directive :
 
     _vb.memory = "1024"_.
 
-Change 1024 to, e.g., 512, or 2048, etc.
+Change from 1024 to, e.g., 512, or 2048, etc.  Take care to not exceed the host's amount of available real memory.
 
-##### VirtualBox Provisioning
+##### VagrantBox Provisioning
 _VirtualBox_ provisioning is done by an _inline_ script, at the end of the _Vagrantfile_.  You may customize the provisioning as needed by editing that section.
 
-##### Port Mapping And Php-Server-Mon-Sys
+##### Port Forwarding And Php-Server-Mon-Sys
 The following information is only relevant to users of _Php-Server-Mon-Sys_; if you do not use this _vagrantbox_ to run _Php-Server-Mon-Sys_, you may ignore this section.
 
-To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which forwards _Port 28684_ on the _VirtualBox_ to _port 28684_ on the host.  If necessary, change port mapping by revising the _Vagrantfile_, editing the following directive as needed:
+To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which forwards _port 28684_ on the _VagrantBox_ to _port 28684_ on the host.  If necessary, change port mapping by revising the _Vagrantfile_, editing the following directive as needed:
 
   * config.vm.network "forwarded_port", guest: 28684, host: 28684
+
+As an example, to change the PSMS application service port, (HTTP port), from 28684 to 8888, revise the directive to :
+
+  * config.vm.network "forwarded_port", guest: 28684, host: 8888
+
 
 #### Etc
 Licensed per Apache License version 2.0
