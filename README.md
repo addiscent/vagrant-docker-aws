@@ -168,7 +168,7 @@ Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubun
 The default _VagrantBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
 To do so, revise this _Vagrantfile_ directive :
 
-    _vb.memory = "1024"_.
+    vb.memory = "1024"
 
 Change from 1024 to, e.g., 512, or 2048, etc.  Take care to not exceed the host's amount of available real memory.
 
