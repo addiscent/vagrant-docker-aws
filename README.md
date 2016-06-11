@@ -1,14 +1,14 @@
 # vagrant-docker-aws
 A _Vagrant_ _VirtualBox_ which also contains pre-installed _Docker_ and _AWS CLI_ software.
 
-### Use
+#### Use
 This _Vagrant_ _VirtualBox_ is useful for quick testing of miscellaneous Docker-related experiments, or software evaluation.  It also supports deployment of Docker containers from this _Vagrant_ _VirtualBox_ (_vagrantbox_) to an _Amazon Web Service Region_, (_AWS_), via the _AWS_ CLI.
 
 This _Vagrant_ _VirtualBox_ is easy to install, assuming you already have _Vagrant_ and _VirtualBox_ installed.  Because it is a _Vagrant_ _VirtualBox_, it is also easy to remove; simply use the _vagrant destroy_ command, and the trash has been taken out.
 
 I use this _Vagrant_ box for testing my _GitHub_ project _php-server-mon-sys_.  I also use it as an easily discardable host for the demo walk-through script in my _GitHub_ project _presentation-intro-to-devops-for-web-developers_.
 
-### Installation Requirements
+#### Installation Requirements
 
   * Hardware virtualizable CPU, dual-core at a minimum
   * 1.2GB available memory is the default.  You may reduce or increase
@@ -17,7 +17,7 @@ I use this _Vagrant_ box for testing my _GitHub_ project _php-server-mon-sys_.  
   * VirtualBox 5.0, (https://www.virtualbox.org/)
   * UnZip 6.00, (or equivalent)
 
-### Installation Instructions
+#### Installation Instructions
 The following instructions assume installation and use on an _Ubuntu 14.04_ distribution.  Adapt the instructions for your OS distribution if necessary.
 
 Bringing up this _vagrantbox_ typically takes 9 minutes, but will vary, depending on the speed of your host and Internet connection.
@@ -41,7 +41,7 @@ Download the _vagrant-docker-aws_ project ZIP file, named _master.zip_, and then
           -rw-rw-r-- 1 usr grp 3.5K Jun  9 05:46 README.md
           -rw-rw-r-- 1 usr grp 4.5K Jun  9 05:46 Vagrantfile
 
-##### Create A New VagrantBox
+#### Create A New VagrantBox
 Use the _vagrant up_ command to create a new _vagrantbox_ containing an instance of _Ubuntu Server 14.04_.  During creation, the _Vagrantfile_ provisioning script also installs _Docker Engine_, _Docker Compose_, _Docker Machine_, and _Amazon Web Services Command Line_ software, (_AWS CLI_) :
 
       $ vagrant up
@@ -50,7 +50,7 @@ Most of the time required for creation of the _vagrantbox_ is consumed by the on
 
       ==> default: UnZip 6.00 of 20 April 2009, by Debian. Original by Info-ZIP.
 
-##### Login To The New VagrantBox
+#### Login To The New VagrantBox
 When the terminal prompt returns after the new _vagrantbox_ has been created, start an _ssh_ session with the new _vagrantbox_ :
 
       $ vagrant ssh
@@ -79,7 +79,7 @@ Confirm successful installation of Docker and AWS CLI by entering the following 
       $ aws --version
       aws-cli/1.10.37 Python/2.7.6 Linux/3.13.0-87-generic botocore/1.4.27
 
-##### Explore The New VagrantBox
+#### Explore The New VagrantBox
 The the OS of the newly created _vagrantbox_ is _Ubuntu Server 14.04_.  Explore it in whatever manner you wish, it's simply yet another Linux host, which happens to already have a set of Docker suite and AWS CLI commands installed. Do things you would never try on a host which took you four hours, (or four days), to install and configure.  It's not sacred, it's disposable; if you corrupt it, you may _vagrant destroy_ it, (see _Uninstallation_ below), and recreate a new instance of it just as before, in less than ten minutes.
 
 For more advanced use, e.g., running an NGINX server or an experimental Rails project inside the _vagrantbox_, read _Vagrant's_ documentation about "Port Forwarding", so you can view HTTP pages served from the _vagrantbox_, using your web browser.  Learn to do an easy modification to the _Vagrantfile_, and _walla_ (sic), you've got a local web-server which uses any port you choose, (within constraints). https://www.vagrantup.com/docs/networking/forwarded_ports.html
@@ -90,7 +90,7 @@ When you are ready, return to your host terminal prompt using the usual method :
       logout
       Connection to 127.0.0.1 closed.
 
-### Uninstallation
+#### Uninstallation
 The _vagrant destroy_ command removes the _vagrantbox_ instance files, (the _sysroot_ volume of the _Ubuntu Server 14.04_ _vagrantbox_ itself), from storage on the host.  Any changes previously made to this particular _vagrantbox_ configuration, (e.g., by using a _vagrant ssh_ session to do work such as editing/creating files on the _vagrantbox_ _sysroot_ volume), will be destroyed along with the _vagrantbox_.
 
 The _vagrant destroy_ command does _not_ delete the _vagrant-docker-aws-master_ work/project directory, nor any of the files in that directory :
@@ -114,22 +114,22 @@ After using the _vagrant destroy_ command, you may then delete from the host the
 ###### Note: Use the _vagrant destroy_ command before deleting a _vagrantbox's_ files or directory; do not simply delete the files in the project directory.  Otherwise, orphaned _VirtualBox_ instance files will accumulate in your VirtualBox VM storage directory.  They cause no harm, but may consume large amounts of unnecessary space on host storage.  You may delete orphaned _VirtualBoxes_ using the _VirtualBox GUI_ or _VirtualBox CLI_ commands.
 
 
-##### Important Common Vagrant Commands
+#### Important Common Vagrant Commands
 
 The most important of the commonly used commands are :
 
-  vagrant help
-  vagrant up
-  vagrant status
-  vagrant global-status
-  vagrant port
-  vagrant suspend
-  vagrant resume
-  vagrant halt
-  vagrant destroy
-  vagrant box
+      vagrant help
+      vagrant up
+      vagrant status
+      vagrant global-status
+      vagrant port
+      vagrant suspend
+      vagrant resume
+      vagrant halt
+      vagrant destroy
+      vagrant box
 
-### Where To Go Frome Here?  There's Always A "However"
+#### Where To Go Frome Here?  There's Always A "However"
 As is, "right off the shelf", this _vagrantbox_ can be quite a useful tool.  "However", to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, "however", to do advanced work it is necessary to learn _vagrant_ command line usage, and the _Vagrantfile_ directives.  There are _vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  There are _Vagrantfile_ directives for setting the memory size of the instance, and for forwarding ports from inside the _vagrantbox_ into the host port space, and more.
 
 For more information, read the official documentation.
@@ -140,18 +140,18 @@ _Vagrant_ allows convenient use of a very powerful tool, _VirtualBox_.  I highly
 
     VirtualBox official - https://www.virtualbox.org/manual/UserManual.html
 
-### When Ready For More Advanced Use
+#### When Ready For More Advanced Use
 You may also change the _Vagrantfile_ to customize the configuration of the OS during its initial creation, (provisioning).  An example of provisioning may be seen in the _Vagrantfile_ used to create this _vagrantbox_.  Instead of laboriously creating a "custom pet" _vagrantbox_ instance by manually installing/configuring more software after it is initially created, modify the _Vagrantfile_ so that the _vagrantbox_ is already configured the way you want it immmediately after executing _vagrant up_ the first time.  If you do it this way, you lose the fear you had in the past; the fear that you can't try this or that, because it's "too risky" and may bork your environment.
 
 So, inspect the _Vagrantfile_.  Change it any way you wish, experiment with it, customize it to do what you want to do, (or want to learn to do).  If you fubar a _vagrantbox_ you are creating, you can simply _vagrant destroy_ it, and recreate it.  Create as many special purpose _vagrantboxes_ as you wish.
 
 The _Port Forwarding_ feature of _Vagrant_ allows for some interesting experimentation with more advanced architectures. If the host has enough memory and CPU cores, multiple _vagrantboxes_ may be run concurrently.  "However", keep in mind that weak hardware need not apply for this job.  For every _vagrantbox_ which is executing at any given moment, it requires a CPU core, and more memory.  The good news is if you have an 8 core host with 8GB of memory, you can experiment with creating your own "four-server cluster".  That sort of thing is easier to create and manage on AWS, but, AWS EC2 instances are paid for by the minute, after giving AWS your credit card number.
 
-### Contents Of The VirtualBox
-#### Guest OS
+#### Contents Of The VirtualBox
+##### Guest OS
 Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubuntu/trusty64")
 
-#### Additional software installed
+##### Additional software installed
 
   * Docker Engine 1.11.2
 
@@ -163,7 +163,7 @@ Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubun
 
   * UnZip 6.00
 
-### Misc
+#### Misc
 ##### VirtualBox Memory Allocation
 The default _VirtualBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
 To do so, revise this Vagrantfile directive :
@@ -178,11 +178,12 @@ _VirtualBox_ provisioning is done by an _inline_ script, at the end of the _Vagr
 ##### Port Mapping And Php-Server-Mon-Sys
 The following information is only relevant to users of _Php-Server-Mon-Sys_; if you do not use this _vagrantbox_ to run _Php-Server-Mon-Sys_, you may ignore this section.
 
-To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which maps _Port 28684_ on the _VirtualBox_ to _port 28684_ on the host.  If necessary, change port mapping by revising the _Vagrantfile_, editing the following directive as needed:
+To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which forwards _Port 28684_ on the _VirtualBox_ to _port 28684_ on the host.  If necessary, change port mapping by revising the _Vagrantfile_, editing the following directive as needed:
 
   * config.vm.network "forwarded_port", guest: 28684, host: 28684
 
-### Etc
+#### Etc
 Licensed per Apache License version 2.0
 
 Copyright 2016 Rex Addiscentis raddiscentis@addiscent.com
+
