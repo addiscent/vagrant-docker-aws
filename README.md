@@ -2,7 +2,7 @@
 A _Vagrant_ _VirtualBox_ which also contains pre-installed _Docker_ and _AWS CLI_ software.
 
 #### Use
-This _Vagrant_ _VirtualBox_ is useful for quick testing of miscellaneous Docker-related experiments, or software evaluation.  It also supports deployment of Docker containers from this _Vagrant_ _VirtualBox_ (_vagrantbox_) to an _Amazon Web Service Region_, (_AWS_), via the _AWS_ CLI.
+This _Vagrant_ _VirtualBox_ is useful for quick testing of miscellaneous Docker-related experiments, or software evaluation.  It also supports deployment of Docker containers from this _Vagrant_ _VirtualBox_ (_vagrantbox_) to any _Amazon Web Service Region_, (_AWS_), via the _AWS_ CLI.
 
 This _Vagrant_ _VirtualBox_ is easy to install, assuming you already have _Vagrant_ and _VirtualBox_ installed.  Because it is a _Vagrant_ _VirtualBox_, it is also easy to remove; simply use the _vagrant destroy_ command, and the trash has been taken out.
 
@@ -15,7 +15,8 @@ I use this _Vagrant_ box for testing my _GitHub_ project _php-server-mon-sys_.  
   * 2GB available disk storage
   * Vagrant 1.8.1, (https://www.vagrantup.com/)
   * VirtualBox 5.0, (https://www.virtualbox.org/)
-  * UnZip 6.00, (or equivalent)
+  * Curl 7.35.0 (or equivalent alternate)
+  * UnZip 6.00, (or equivalent alternate)
 
 #### Installation Instructions
 The following instructions assume installation and use on an _Ubuntu 14.04_ distribution.  Adapt the instructions for your OS distribution if necessary.
@@ -109,8 +110,7 @@ The _vagrant destroy_ command does _not_ delete the _vagrant-docker-aws-master_ 
 
 After using the _vagrant destroy_ command, you may then delete from the host the _vagrant-docker-aws-master_ directory, or selected files.
 
-###### Note: Use the _vagrant destroy_ command before deleting a _vagrantbox's_ files or directory; do not simply delete the files in the project directory.  Otherwise, orphaned _VirtualBox_ instance files will accumulate in your VirtualBox VM storage directory.  They cause no harm, but may consume large amounts of unnecessary space on host storage.  You may delete orphaned _VirtualBoxes_ using the _VirtualBox GUI_ or _VirtualBox CLI_ commands.
-
+###### Note: Do not delete the files in the project home directory before executing the _vagrant destroy_ command.  The _vagrant destroy_ command is dependent upon reading the _Vagrant_-specific files in the project directory; the _vagrant destroy_ cannot function without those files.  If the _vagrant destroy_ command cannot be executed, orphaned _VirtualBox_ instance files will accumulate in your VirtualBox VM storage directory.  They cause no harm, but may consume large amounts of unnecessary space on host storage.  If you prevent the execution of _vagrant destroy_ by inadvertently deleting the _Vagrant_ files, you may delete orphaned _VirtualBoxes_ using the _VirtualBox GUI_ or _VirtualBox CLI_ commands.
 
 #### Important Common Vagrant Commands
 
@@ -134,14 +134,40 @@ For more information, read the official Vagrant documentation : https://www.vagr
 
 In addition to being valuable as a provider for _Vagrant_, _VirtualBox_ is very valuable even when used by itself : https://www.virtualbox.org/manual/UserManual.html
 
+##### VagrantBox Memory Allocation
+The default _VagrantBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
+To do so, revise this _Vagrantfile_ directive :
+
+      vb.memory = "1024"
+
+Change from 1024 to, e.g., 512, or 2048, etc.  Take care to not exceed the host's amount of available real memory.
+
+After revising that directive in the _Vagrantfile_, reload the _vagrantbox_ by executing the following command :
+
+      $ vagrant reload
+
+##### Port Forwarding
+If you need port forwarding for your project, the following _Vagrantfile_ directive is used to configure it.  If port forwarding is not needed for your project, you may remove the directive, by either "commenting it out", or deleting it.
+
+To support _php-server-mon-sys_ project, (see https://github.com/addiscent), the _Vagrantfile_ contains a directive which forwards _port 28684_ on the _VagrantBox_ to _port 28684_ on the host.
+
+If necessary, change port mapping by revising the _Vagrantfile_, editing the following directive as needed:
+
+      config.vm.network "forwarded_port", guest: 28684, host: 28684
+
+As an example, to change the PSMS application service port, (HTTP port), from 28684 to 8888, revise the directive as :
+
+      config.vm.network "forwarded_port", guest: 28684, host: 8888
+
 #### When Ready For More Advanced Use
 For more advanced use, e.g., running an NGINX server or an experimental Rails project inside the _vagrantbox_, read _Vagrant's_ documentation about _Port Forwarding_, so you can view HTTP pages using your web browser, served from the _vagrantbox_.  Learn to do an easy modification to the _Vagrantfile_, and _walla_ (sic), you've got a quick-and-easy discardable local web-server which uses any port you choose, (within constraints) : https://www.vagrantup.com/docs/networking/forwarded_ports.html
 
 Another advantageous _vagrantbox_ configuration allows a host to "share" a directory with a _vagrantbox_.  This allows both the host and the _vagrantbox_ to operate on the same directories and files, (read, write, etc).  As an example, a software developer may edit files on the host, and a _vagrantbox_ server-process may use them in some manner, e.g., the _vagrantbox_ contains a web server, or is some other type of producer-consumer.  This technique is taken advantage of by the _vagrant-ruby-rails_ project, an Open Source project available on GitHub at https://github.com/addiscent/vagrant-ruby-rails.  For more information, refer to the _Vagrantfile_ directive named "config.vm.synced__folder", in the _Vagrant_ documentation.
 
-You may also change the _Vagrantfile_ to do extensive configuration of the OS during its initial creation, a process known as provisioning.  Rather than laboriously creating a "custom pet" _vagrantbox_ instance by manually installing and configuring more software after it is initially created, instead modify the _Vagrantfile_ so that immmediately after executing _vagrant up_ the first time, the _vagrantbox_ is already configured the way you want it.  _Vagrant-docker-aws_ provisioning is done by an _inline_ script, at the end of the _Vagrantfile_.  You may customize the provisioning as needed by editing that section.
+You may also change the _Vagrantfile_ to do non-trivial configuration of the OS during its initial creation, a process known as provisioning.  Rather than laboriously creating a "custom pet" _vagrantbox_ instance by manually installing and configuring more software after it is initially created, instead modify the _Vagrantfile_ so that immmediately after executing _vagrant up_ the first time, the _vagrantbox_ is already configured the way you want it.  _Vagrant-docker-aws_ provisioning is done by an _inline_ script, at the end of the _Vagrantfile_.  You may customize the provisioning as needed by editing that section.  An example of what you may wish to include in the provisioning script is the installation of Git.
 
 If you create your own new _vagrantboxes_ that way, you may begin to lose a fear you had in the past, the fear that you can't try this or that, because it's "too risky" and may bork your new carefully hand-modified _vagrantbox_.  So, inspect the _Vagrantfile_.  Experiment with it, customize it to create a _vagrantbox_ which does what you need, from the first _vagrant up_.  If you fubar a _vagrantbox_ you are using, you can simply _vagrant destroy_ it, and then "_vagrant up_" a new one, provisioned according to your need.
+
 
 The _Port Forwarding_ feature of _Vagrant_ allows for some interesting experimentation with more advanced architectures. If the host has enough CPU cores and memory, multiple _vagrantboxes_ may be run concurrently.  "However", keep in mind that feeble hardware need not apply for this job.  For every _vagrantbox_ which is executing at any given moment, it requires a CPU core, and more memory.  The good news is if you have an eight core CPU host with 8GB of memory, you can experiment with creating your own "virtual server cluster".  If you are a student of distributed computing, Internet, and Cloud technologies, you can learn about Virtual Private Cloud networks by configuring and running a networked cluster of servers, all entirely on a single computer, (fair warning: not simple!).  It's a very inexpensive way to teach yourself about advanced computing architectures, which can be implemented in the "real world", e.g., on AWS, or a company's network.
 
@@ -160,27 +186,6 @@ Ubuntu Server 14.04 from _Atlas_ (atlas.hashicorp.com/boxes/search) repo, ("ubun
   * AWS CLI - latest, (aws-cli/1.10.36 Python/2.7.6 Linux/3.13.0-86-generic botocore/1.4.26)
 
   * UnZip 6.00
-
-#### Misc
-##### VagrantBox Memory Allocation
-The default _VagrantBox_ memory allocation is 1GB, which may be increased or reduced by revising the _Vagrantfile_.
-To do so, revise this _Vagrantfile_ directive :
-
-      vb.memory = "1024"
-
-Change from 1024 to, e.g., 512, or 2048, etc.  Take care to not exceed the host's amount of available real memory.
-
-##### Port Forwarding And Php-Server-Mon-Sys
-The following information is only relevant to users of _Php-Server-Mon-Sys_; if you do not use this _vagrantbox_ to run _Php-Server-Mon-Sys_, you may ignore this section.
-
-To support _php-server-mon-sys_, the _Vagrantfile_ contains a directive which forwards _port 28684_ on the _VagrantBox_ to _port 28684_ on the host.  If necessary, change port mapping by revising the _Vagrantfile_, editing the following directive as needed:
-
-      config.vm.network "forwarded_port", guest: 28684, host: 28684
-
-As an example, to change the PSMS application service port, (HTTP port), from 28684 to 8888, revise the directive to :
-
-      config.vm.network "forwarded_port", guest: 28684, host: 8888
-
 
 #### Etc
 Licensed per Apache License version 2.0
