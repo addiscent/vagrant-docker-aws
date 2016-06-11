@@ -41,6 +41,7 @@ Download the _vagrant-docker-aws_ project ZIP file, named _master.zip_, and then
           -rw-rw-r-- 1 usr grp 3.5K Jun  9 05:46 README.md
           -rw-rw-r-- 1 usr grp 4.5K Jun  9 05:46 Vagrantfile
 
+##### Create A New VagrantBox
 Use the _vagrant up_ command to create a new _vagrantbox_ containing an instance of _Ubuntu Server 14.04_.  During creation, the _Vagrantfile_ provisioning script also installs _Docker Engine_, _Docker Compose_, _Docker Machine_, and _Amazon Web Services Command Line_ software, (_AWS CLI_) :
 
       $ vagrant up
@@ -49,6 +50,7 @@ Most of the time required for creation of the _vagrantbox_ is consumed by the on
 
       ==> default: UnZip 6.00 of 20 April 2009, by Debian. Original by Info-ZIP.
 
+##### Login To The New VagrantBox
 When the terminal prompt returns after the new _vagrantbox_ has been created, start an _ssh_ session with the new _vagrantbox_ :
 
       $ vagrant ssh
@@ -77,9 +79,10 @@ Confirm successful installation of Docker and AWS CLI by entering the following 
       $ aws --version
       aws-cli/1.10.37 Python/2.7.6 Linux/3.13.0-87-generic botocore/1.4.27
 
+##### Explore The New VagrantBox
 The the OS of the newly created _vagrantbox_ is _Ubuntu Server 14.04_.  Explore it in whatever manner you wish, it's simply yet another Linux host, which happens to already have a set of Docker suite and AWS CLI commands installed. Do things you would never try on a host which took you four hours, (or four days), to install and configure.  It's not sacred, it's disposable; if you corrupt it, you may _vagrant destroy_ it, (see _Uninstallation_ below), and recreate a new instance of it just as before, in less than ten minutes.
 
-For more advanced use, let's say running an Apache server or a Rails server inside the _vagrantbox_, read about "port-forwarding", so you can view HTTP pages from the _vagrantbox_, using your web browser.  Learn to do an easy modification to the _Vagrantfile_, and _walla_, you've got a local webserver which doesn't stomp on the NGINX HTTP port or Rails thin server you were already using on your host. https://www.vagrantup.com/docs/networking/forwarded_ports.html
+For more advanced use, e.g., running an NGINX server or an experimental Rails project inside the _vagrantbox_, read Vagrant's documentation about "Port Forwarding", so you can view HTTP pages served from the _vagrantbox_, using your web browser.  Learn to do an easy modification to the _Vagrantfile_, and _walla_ (sic), you've got a local web-server which uses any port you choose, (which doesn't conflict with the Apache HTTP port or Rails thin server you were already using on your host). https://www.vagrantup.com/docs/networking/forwarded_ports.html
 
 When you are ready, return to your host terminal prompt using the usual method :
 
@@ -106,15 +109,23 @@ After using the _vagrant destroy_ command, you may then delete from the host the
 
 ###### Note: Use the _vagrant destroy_ command before deleting a _vagrantbox's_ files or directory; do not simply delete the files in the project directory.  Otherwise, orphaned _VirtualBox_ instance files will accumulate in your VirtualBox vm storage area.  They cause no harm, but may consume large amounts of unnecessary space on host storage.  You may delete orphaned _VirtualBoxes_ using the VirtualBox GUI or VirtualBox CLI commands.
 
-### No Free Lunch
-As they say, "There's always a 'However'".  To take full advantage of a _vagrantbox_, it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, but to do advanced work it is necessary to learn the rules and commands of _Vagrant_.  There are _Vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  There are _Vagrantfile_ directives for setting the memory size of the instance, and for mapping ports from inside the _vagrantbox_ into the host "port space", (Forwarding Ports), and more.
+### Where To Go Frome Here?  There's Always A "However"
+As is, "right off the shelf", this _vagrantbox_ can be quite a useful tool.  "However", to take full advantage of a _vagrantbox_ it is neccesary to learn the _Vagrant_ way of using it on a host.  It's possible to do some _really_ interesting work with _Vagrant/VirtualBox_ instances, "however", to do advanced work it is necessary to learn _vagrant_ command line usage, and the _Vagrantfile_ directives.  There are _vagrant_ commands for typical management, (creating, monitoring, modifying, destroying).  There are _Vagrantfile_ directives for setting the memory size of the instance, and for forwarding ports from inside the _vagrantbox_ into the host port space, and more.
+
+For more information, read the official documentation.
+
+    Vagrant official - https://www.vagrantup.com/docs/
+
+_Vagrant_ allows convenient use of a very powerful tool, _VirtualBox_.  I highly recommend learning about and using _VirtualBox_, by itself :
+
+    VirtualBox official - https://www.virtualbox.org/manual/UserManual.html
 
 ### When Ready For More Advanced Use
-You may also change the _Vagrantfile_ to customize the configuration of the OS during its initial creation, (provisioning).  An example of provisioning may be seen in the _Vagrantfile_ used to create this _vagrantbox_.  Instead of laboriously creating a "custom pet" _vagrantbox_ by manually installing/configuring more software after it is created, modify the _Vagrantfile_ so that the _vagrantbox_ is already configured the way you want immmediately after executing _vagrant up_ the first time.  If you do it this way, you lose the fear you had in the past; the fear that you can't try this or that, because it's "too risky" and may bork my environment.
+You may also change the _Vagrantfile_ to customize the configuration of the OS during its initial creation, (provisioning).  An example of provisioning may be seen in the _Vagrantfile_ used to create this _vagrantbox_.  Instead of laboriously creating a "custom pet" _vagrantbox_ instance by manually installing/configuring more software after it is initially created, modify the _Vagrantfile_ so that the _vagrantbox_ is already configured the way you want it immmediately after executing _vagrant up_ the first time.  If you do it this way, you lose the fear you had in the past; the fear that you can't try this or that, because it's "too risky" and may bork your environment.
 
-So, inspect the _Vagrantfile_.  Feel free, the freedom to change it in any way you wish, experiment with it, customize it to do what you want to do, (or want to learn to do).  If you fubar it, you can simply _vagrant destroy_ the _vagrantbox_ and recreate it, without worry, because it's not difficult or time consuming.
+So, inspect the _Vagrantfile_.  Change it any way you wish, experiment with it, customize it to do what you want to do, (or want to learn to do).  If you fubar a _vagrantbox_ you are creating, you can simply _vagrant destroy_ it, and recreate it.  Create as many special purpose _vagrantboxes_ as you wish.
 
-The Port Forwarding feature of _Vagrant_ allows for some interesting experimentation with more advanced architectures. If the host has enough memory and cores, multiple _vagrantboxes_ may be run concurrently.  "However", keep in mind that weak hardware need not apply for this job.  For every _vagrantbox_ which is exeuting at any given moment, it requires a CPU core, (and the memory it needs).  The good news is if you have an 8 core host with 8GB of memory, you can experiment with creating your own "four-server cluster".  That sort of thing is easier to create and manage on AWS, but every AWS EC2 instance is billed by the minute.
+The _Port Forwarding_ feature of _Vagrant_ allows for some interesting experimentation with more advanced architectures. If the host has enough memory and CPU cores, multiple _vagrantboxes_ may be run concurrently.  "However", keep in mind that weak hardware need not apply for this job.  For every _vagrantbox_ which is executing at any given moment, it requires a CPU core, and more memory.  The good news is if you have an 8 core host with 8GB of memory, you can experiment with creating your own "four-server cluster".  That sort of thing is easier to create and manage on AWS, but, AWS EC2 instances are paid for by the minute, after giving AWS your credit card number.
 
 ### Contents Of The VirtualBox
 #### Guest OS
