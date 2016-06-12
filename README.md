@@ -10,6 +10,7 @@ I use this _Vagrant_ box for testing my _GitHub_ project _php-server-mon-sys_.  
 
 #### Installation Requirements
 
+  * Internet connection
   * Hardware virtualizable CPU, dual-core at a minimum
   * 1.2GB available memory is the default.  You may reduce or increase
   * 2GB available disk storage
@@ -61,12 +62,14 @@ In the _ssh_ session created by _vagrant ssh_, the terminal displays some Ubuntu
       vagrant@vbox-docker-aws:~
       $
 
+Note the name of the currrently logged-in user is _vagrant_.  The user _vagrant_ is the user logged in by default on this _vagrantbox_.
+
 You may need to know the following credentials for some admin activities in this _vagrantbox_ :
 
       user : vagrant
       password : vagrant
 
-Confirm successful installation of Docker and AWS CLI by entering the following commands and noting the appropriate results:
+Confirm successful installation of the Docker suite and AWS CLI by entering the following commands and noting the appropriate results:
 
       $ docker --version
           Docker version 1.11.2, build b9f10c9
@@ -79,6 +82,23 @@ Confirm successful installation of Docker and AWS CLI by entering the following 
 
       $ aws --version
           aws-cli/1.10.37 Python/2.7.6 Linux/3.13.0-87-generic botocore/1.4.27
+
+#### Verify Docker Configuration
+_Docker_ installation, including addition of the user _vagrant_ to the group _docker_, is performed by the provisioning script of the _Vagrantfile_, during _vagrant up_.  If _Docker_-related configuration did not complete properly during provisioning, errors occur when attempting to execute _Docker_ commands.  The following "pass/fail" test verifies the configuration is correct for the current user, (in this case, _vagrant_).
+
+      $ docker run hello-world
+          Unable to find image 'hello-world:latest' locally
+                .
+                .
+          Hello from Docker.
+                .
+                .
+          For more examples and ideas, visit:
+           https://docs.docker.com/engine/userguide/
+
+If _Docker_ is not configured correctly, or if the user _vagrant_ has not been added to the _docker_ group as required, an obvious error message is displayed.  There should be no error message, in this case.
+
+Note the message above shows "Unable to find image 'hello-world:latest' locally".  This is _normal_, because "hello-world" has never been run as a _Docker_ container before on this _vagrantbox_.  When _Docker_ can't find an image locally, _Docker's_ next step is to attempt to download it from the _Docker Hub_ repository named _library/hello_, (https://hub.docker.com).  The message above also contains the phrase, "Hello from Docker".  This is another sign that _Docker_ is configured and functioning correctly.
 
 #### Explore The New VagrantBox
 The OS of the newly created _vagrantbox_ is _Ubuntu Server 14.04_.  Explore it in whatever manner you wish, it's simply yet another Linux host, which happens to already have a set of Docker suite and AWS CLI commands installed. Try things you would never feel comfortable doing on a host which in the past took two hours, (or two days), to install and configure.  It's not sacred, it's discardable; if you corrupt it, you may _vagrant destroy_ it, (see _Uninstallation_ below), and recreate a new instance of it just as before, in less than ten minutes.
