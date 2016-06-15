@@ -43,6 +43,8 @@ Download the _vagrant-docker-aws_ project ZIP file, named _master.zip_, and then
           -rw-rw-r-- 1 usr grp 3.5K Jun  9 05:46 README.md
           -rw-rw-r-- 1 usr grp 4.5K Jun  9 05:46 Vagrantfile
 
+Note that you may rename the _vagrant-docker-aws-master_ directory, if you wish.  If you suspect you may rename it sometime in the future, it is best to do so now.
+
 #### Create A New VagrantBox
 Use the _vagrant up_ command to create a new _vagrantbox_ containing an instance of _Ubuntu Server 14.04_.  During creation, the _Vagrantfile_ provisioning script also installs _Docker Engine_, _Docker Compose_, _Docker Machine_, and _Amazon Web Services Command Line_ software, (_AWS CLI_) :
 
