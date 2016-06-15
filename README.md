@@ -33,8 +33,8 @@ Make a project directory and set it as the current directory, e.g. :
 
 Download the _vagrant-docker-aws_ project ZIP file, named _master.zip_, and then uncompress-unarchive the files from it into your work directory.  The _unzip_ command automatically creates a subdirectory named _vagrant-docker-aws-master_.  Set that directory as the current working directory :
 
-      $ curl -O -L https://github.com/addiscent/vagrant-docker-aws/archive/master.zip
-      $ unzip master.zip
+      $ wget -O vagrant-docker-aws.zip https://github.com/addiscent/vagrant-docker-aws/archive/master.zip
+      $ unzip vagrant-docker-aws.zip
       $ cd ~/vda-test/vagrant-docker-aws-master
       $ ls -al  # list the vagrant-docker-aws project files
           -rw-rw-r-- 1 usr grp 3.9K Jun  9 05:46 .bashrc
