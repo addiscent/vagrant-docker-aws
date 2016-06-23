@@ -106,5 +106,8 @@ Vagrant.configure(2) do |config|
     # intall Unzip
     apt-get install -y unzip &&
     unzip -v | grep "UnZip 6"
+
+    # set root's working path
+    echo 'PATH="/sbin:/bin:$PATH"' >> /root/.bashrc
   SHELL
 end
