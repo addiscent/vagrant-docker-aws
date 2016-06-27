@@ -109,5 +109,8 @@ Vagrant.configure(2) do |config|
 
     # set root's working path
     echo 'PATH="/sbin:/bin:$PATH"' >> /root/.bashrc
+
+    # remove some bloat
+    apt-get autoremove -y
   SHELL
 end
