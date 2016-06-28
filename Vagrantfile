@@ -108,7 +108,7 @@ Vagrant.configure(2) do |config|
     unzip -v | grep "UnZip 6"
 
     # set root's working path
-    echo 'PATH="/sbin:/bin:$PATH"' >> /root/.bashrc
+    echo 'PATH="$PATH:/sbin:/bin"' >> /root/.bashrc
 
     # remove some bloat
     apt-get autoremove -y
