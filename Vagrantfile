@@ -105,6 +105,13 @@ Vagrant.configure("2") do |config|
       -o /etc/bash_completion.d/docker-compose && \
 
     #################
+    # install docker-machine
+    curl -L \
+      https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-`uname -s`-`uname -m` \
+      > /usr/local/bin/docker-machine && \
+    chmod +x /usr/local/bin/docker-machine && \
+
+    #################
     # install AWS CLI
     curl -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
