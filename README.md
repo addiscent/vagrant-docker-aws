@@ -10,7 +10,7 @@ This _Vagrant_ _VirtualBox_ is easy to install, assuming you already have _Vagra
 
 I use this _Vagrant_ box for development and testing of my _GitHub_ project _php-server-mon-sys_ :
 
-      https://github.com/addiscent/php-server-mon-sys
+  https://github.com/addiscent/php-server-mon-sys
 
 #### Installation Requirements
 
