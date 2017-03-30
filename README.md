@@ -1,8 +1,8 @@
 # vagrant-docker-aws
-A _Vagrant_ _VirtualBox_ which contains pre-installed _Docker Engine CE_, _Docker Compose_, and _AWS CLI_ software.
+A _Vagrant_ _VirtualBox_ which contains pre-installed _Docker Engine CE_, _Docker Compose_, _Docker Machine_, and _AWS CLI_ software.
 
 #### Use
-This _Vagrant_ _VirtualBox_ is useful for quick testing of miscellaneous Docker-related experiments, or software evaluation.  Because the _AWS CLI_ software is installed, it also supports deployment of Docker containers from this _Vagrant_ _VirtualBox_ (_vagrantbox_) to any _Amazon Web Service Region_, (_AWS_), via the _AWS_ CLI.
+This _Vagrant_ _VirtualBox_ is useful for quick testing of miscellaneous Docker-related experiments, or software evaluation.  Because the _Docker Machine_ and _AWS CLI_ software is installed, it also supports deployment of Docker containers from this _Vagrant_ _VirtualBox_ (_vagrantbox_) to any _Amazon Web Service Region_, (_AWS_), via the _AWS_ CLI.
 
 This _Vagrant_ box should work on any host computer which has _Vagrant_ and _VirtualBox_ installed, but it has been tested only on _Ubuntu 14.04_ and _Ubuntu 16.04_.
 
@@ -47,7 +47,7 @@ Download the _vagrant-docker-aws_ project ZIP file, named _master.zip_, and then
 Note that you may rename the _vagrant-docker-aws-master_ directory, if you wish.  If you suspect you may rename it sometime in the future, it is best to do so now.
 
 #### Create The New VagrantBox
-Use the _vagrant up_ command to create a new _vagrantbox_.  During creation, the _Vagrantfile_ provisioning script installs _Docker Engine CE_, _Docker Compose_, and _Amazon Web Services Command Line_ software, (_AWS CLI_) :
+Use the _vagrant up_ command to create a new _vagrantbox_.  During creation, the _Vagrantfile_ provisioning script installs _Docker_ suite and _Amazon Web Services Command Line_ software, (_AWS CLI_) :
 
       $ vagrant up
 
@@ -64,7 +64,7 @@ When the terminal prompt returns after the new _vagrantbox_ has been created, st
 
       $ vagrant ssh
 
-In the _ssh_ session created by _vagrant ssh_, the terminal displays some Ubuntu Server 16.04 login banner info, and the following terminal prompt :
+In the _ssh_ session created by _vagrant ssh_, the terminal displays some _Ubuntu 16.04 Server_ login banner info, and the following terminal prompt :
 
       vagrant@vbox-docker-aws:~
       $
@@ -78,6 +78,9 @@ Confirm successful installation of the Docker suite and AWS CLI by entering the 
 
       $ docker-compose --version
           docker-compose version 1.11.2, build dfed245
+
+      $ docker-machine --version
+          docker-machine version 0.10.0, build 76ed2a6
 
       $ aws --version
           aws-cli/1.11.68 Python/3.5.2
@@ -107,7 +110,7 @@ If _Docker_ is not configured correctly, or if the user _vagrant_ has not been a
 Note the message above shows "Unable to find image 'hello-world:latest' locally".  This is _normal_, because "hello-world" has never been run as a _Docker_ container before on this _vagrantbox_.  When _Docker_ can't find an image locally, _Docker's_ next step is to attempt to download it from the _Docker Hub_ repository named _library/hello_, (https://hub.docker.com).  The message above also contains the phrase, "Hello from Docker".  This is another sign that _Docker_ is configured and functioning correctly.
 
 #### Explore The New VagrantBox
-The OS of the newly created _vagrantbox_ is _Ubuntu Server 16.04_.  Explore it in whatever manner you wish, it's simply yet another Linux host, which happens to already have _Docker_ and _AWS CLI_ commands installed. Try things you would never feel comfortable doing on a host which in the past took two hours, (or two days), to install and configure.  It's not sacred, it's discardable; if you corrupt it, you may _vagrant destroy_ it, (see _Uninstallation_ below), and recreate a new instance of it just as before, in less than ten minutes.
+The OS of the newly created _vagrantbox_ is _Ubuntu 16.04 Server 16.04_.  Explore it in whatever manner you wish, it's simply yet another Linux host, which happens to already have _Docker_ and _AWS CLI_ commands installed. Try things you would never feel comfortable doing on a host which in the past took two hours, (or two days), to install and configure.  It's not sacred, it's discardable; if you corrupt it, you may _vagrant destroy_ it, (see _Uninstallation_ below), and recreate a new instance of it just as before, in less than ten minutes.
 
 When you are finished exploring and ready to shut down the _vagrantbox_, exit the _vagrant ssh_ session and return to your host terminal prompt using the usual method :
 
@@ -116,7 +119,7 @@ When you are finished exploring and ready to shut down the _vagrantbox_, exit th
           Connection to 127.0.0.1 closed.
 
 #### Uninstallation
-The _vagrant destroy_ command removes the _vagrantbox_ instance files, (including the _sysroot_ volume of the _Ubuntu Server 16.04_ _vagrantbox_ itself), from storage on the host.  Any changes previously made to this particular _vagrantbox_ configuration, (e.g., by using a _vagrant ssh_ session to do work such as editing/creating files on the _vagrantbox_ _sysroot_ volume), will be destroyed along with the _vagrantbox_.
+The _vagrant destroy_ command removes the _vagrantbox_ instance files, (including the _sysroot_ volume of the _Ubuntu 16.04 Server 16.04_ _vagrantbox_ itself), from storage on the host.  Any changes previously made to this particular _vagrantbox_ configuration, (e.g., by using a _vagrant ssh_ session to do work such as editing/creating files on the _vagrantbox_ _sysroot_ volume), will be destroyed along with the _vagrantbox_.
 
 The _vagrant destroy_ command does _not_ delete the _vagrant-docker-aws-master_ work/project directory, nor any of the files in that directory :
 
