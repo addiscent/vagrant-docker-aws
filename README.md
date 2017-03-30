@@ -192,7 +192,7 @@ In addition to being a provider for _Vagrant_, _VirtualBox_ is very valuable eve
 ##### Shared Storage
 There exists a _vagrantbox_ configuration option which allows a file-system directory to be "shared" between the host and a _vagrantbox_.  This allows both the host and the _vagrantbox_ to operate on the same directories and files, (read, write, etc).  As an example, a software developer may edit web page source files on the host, and a _vagrantbox_ HTTP server may deliver them.  This technique is used on the _vagrant-ruby-rails_ project, (https://github.com/addiscent/vagrant-ruby-rails).  For more information, refer to the _Vagrantfile_ directive named "config.vm.synced_folder", in the _Vagrant_ documentation.
 
-If there is no active "config.vm.synced_folder" directive in the _Vagrantfile_, _Vagrant_ will by default share the directory of the host which contains the _vagrantbox_, (in our case "~/vda-test/vagrant-docker-aws-master"), into a directory of the guest, named "/vagrant".  To confirm that this is the case for your installation, list the /vagrant directory while in a session with the guest; it should be exactly the same as the "~/vda-test/vagrant-docker-aws-master" listing above :
+If there is no active "config.vm.synced_folder" directive in the _Vagrantfile_, _Vagrant_ will by default share the directory of the host which contains the _vagrantbox_, (in our case ~/vda-test/vagrant-docker-aws-master), into a directory of the guest, named "/vagrant".  To confirm that this is the case for your installation, list the /vagrant directory while in a session with the guest; it should be exactly the same as the ~/vda-test/vagrant-docker-aws-master listing above :
 
       vagrant@vbox-docker-aws:~
       $ ls -al /vagrant
