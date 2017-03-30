@@ -1,14 +1,16 @@
 # vagrant-docker-aws
-A _Vagrant_ _VirtualBox_ which contains pre-installed _Docker_ and _AWS CLI_ software.
+A _Vagrant_ _VirtualBox_ which contains pre-installed _Docker Engine CE_, _Docker Compose_, and _AWS CLI_ software.
 
 #### Use
 This _Vagrant_ _VirtualBox_ is useful for quick testing of miscellaneous Docker-related experiments, or software evaluation.  Because the _AWS CLI_ software is installed, it also supports deployment of Docker containers from this _Vagrant_ _VirtualBox_ (_vagrantbox_) to any _Amazon Web Service Region_, (_AWS_), via the _AWS_ CLI.
 
-This _Vagrant_ box should work on any host computer which has _Vagrant_ and _VirtualBox_ installed, but it has been tested only on _Ubuntu 14.04/16.04_.
+This _Vagrant_ box should work on any host computer which has _Vagrant_ and _VirtualBox_ installed, but it has been tested only on _Ubuntu 14.04_ and _Ubuntu 16.04_.
 
 This _Vagrant_ _VirtualBox_ is easy to install, assuming you already have _Vagrant_ and _VirtualBox_ installed.  Because it is a _Vagrant_ _VirtualBox_, it is also easy to remove; simply use the _vagrant destroy_ command, and the trash has been taken out.
 
-I use this _Vagrant_ box for testing my _GitHub_ project _php-server-mon-sys_.
+I use this _Vagrant_ box for development and testing of my _GitHub_ project _php-server-mon-sys_ :
+
+      https://github.com/addiscent/php-server-mon-sys
 
 #### Installation Requirements
 
@@ -45,11 +47,11 @@ Download the _vagrant-docker-aws_ project ZIP file, named _master.zip_, and then
 Note that you may rename the _vagrant-docker-aws-master_ directory, if you wish.  If you suspect you may rename it sometime in the future, it is best to do so now.
 
 #### Create The New VagrantBox
-Use the _vagrant up_ command to create a new _vagrantbox_.  During creation, the _Vagrantfile_ provisioning script installs _Docker Engine CE_ and _Amazon Web Services Command Line_ software, (_AWS CLI_) :
+Use the _vagrant up_ command to create a new _vagrantbox_.  During creation, the _Vagrantfile_ provisioning script installs _Docker Engine CE_, _Docker Compose_, and _Amazon Web Services Command Line_ software, (_AWS CLI_) :
 
       $ vagrant up
 
-Most of the time required for creation of the _vagrantbox_ is consumed by the one-time-only task of downloading the _bento/ubuntu-16.04_ image from hashicorp.com, and also by the one-time-only installation of _Docker CE_ and _AWS CLI_.
+Most of the time required for creation of the _vagrantbox_ is consumed by the one-time-only task of downloading the _bento/ubuntu-16.04_ image from hashicorp.com, and also by the one-time-only installation of the _Docker_ suite and _AWS CLI_.
 
 When the _vagrant up_ command is used to resume the halted _vagrantbox_ the second time or thereafter, it will load and finish startup in approximately one minute or less.
 
@@ -74,10 +76,13 @@ Confirm successful installation of the Docker suite and AWS CLI by entering the 
       $ docker --version
           Docker version 17.03.1-ce, build c6d412e
 
+      $ docker-compose --version
+          docker-compose version 1.11.2, build dfed245
+
       $ aws --version
           aws-cli/1.11.68 Python/3.5.2
 
-Note that the provisioning script in the _Vagrantfile_ always attempts to install the most recent release of _Docker_ and _AWS CLI_, so the version numbers you see may be newer than those listed above.
+Note that the provisioning script in the _Vagrantfile_ always attempts to install the most recent release of _Docker_ suite and _AWS CLI_, so the version numbers you see may be newer than those listed above.
 
 You may need to know the following credentials for some admin activities in this _vagrantbox_ :
 
