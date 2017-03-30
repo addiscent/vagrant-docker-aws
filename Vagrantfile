@@ -96,9 +96,6 @@ Vagrant.configure("2") do |config|
     # install AWS CLI
     curl -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
-    echo "" >> /home/vagrant/.bashrc && \
-    echo 'export PATH="~/.local/bin:$PATH"' >> /home/vagrant/.bashrc && \
-    echo 'export PATH="~/.local/bin:$PATH"' >> /root/.bashrc && \
     export PATH="~/.local/bin:$PATH"
     pip install awscli --upgrade && \
     aws --version && \
