@@ -5,14 +5,14 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-Vagrant.configure(2) do |config|
+Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "bento/ubuntu-16.04"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -48,7 +48,7 @@ Vagrant.configure(2) do |config|
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-     vb.memory = "1024"
+     vb.memory = "512"
    end
   #
   # View the documentation for the provider you are using for more
@@ -65,52 +65,64 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL, privileged: true
-    # set host name
-    echo "vbox-docker-aws" > /etc/hostname &&
-    echo "127.0.0.1  vbox-docker-aws" >> /etc/hosts &&
-    hostname "vbox-docker-aws" &&
+    set -x
+    apt-get update && \
 
-    # install linux headers so Docker installation builds successfully
-    apt-get update &&
-    apt-get install -y apt-transport-https &&
-    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D &&
-    echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list &&
-    apt-get update &&
-    apt-get install -y linux-image-extra-$(uname -r) &&
+    #################
+    # install packages to allow apt to use a repository over HTTPS
+    apt-get -y install \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      software-properties-common &&
 
-    # set terminal prompt
-    cp /vagrant/.bashrc /home/vagrant/ &&
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+      sudo apt-key add - && \
 
+    #################
+    # install docker-ce
+    add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) \
+      stable" && \
+      
+    apt-get update && \
+    apt-get -y install docker-ce && \
+    usermod -aG docker vagrant && \
+    systemctl enable docker && \
+    docker --version && \
+
+    #################
     # install AWS CLI
-    curl -O https://bootstrap.pypa.io/get-pip.py &&
-    python2 get-pip.py &&
-    pip install awscli &&
-    pip install --upgrade awscli &&
-    aws --version &&
+    curl -O https://bootstrap.pypa.io/get-pip.py && \
+    python3 get-pip.py && \
+    echo "" >> /home/vagrant/.bashrc && \
+    echo 'export PATH="~/.local/bin:$PATH"' >> /home/vagrant/.bashrc && \
+    echo 'export PATH="~/.local/bin:$PATH"' >> /root/.bashrc && \
+    export PATH="~/.local/bin:$PATH"
+    pip install awscli --upgrade && \
+    aws --version && \
+    
+    #################
+    # install Unzip
+    apt-get install -y unzip && \
+    unzip -v | grep "UnZip 6" && \
 
-    # install Docker
-    apt-get install -y docker-engine &&
-    usermod -aG docker vagrant &&
-    docker --version &&
-
-    # install Docker Compose
-    curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose &&
-    chmod +x /usr/local/bin/docker-compose &&
-    docker-compose --version &&
-
-    # install Docker Machine
-    curl -L https://github.com/docker/machine/releases/download/v0.7.0/docker-machine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine &&
-    chmod +x /usr/local/bin/docker-machine &&
-    docker-machine --version &&
-
-    # intall Unzip
-    apt-get install -y unzip &&
-    unzip -v | grep "UnZip 6"
-
-    # set root's working path
-    echo 'PATH="$PATH:/sbin:/bin"' >> /root/.bashrc
-
+    #################
     # remove some bloat
-    apt-get autoremove -y
+    apt-get -y autoremove && \
+    
+    #################
+    # set custom prompt and functions/aliases in .bashrc for users vagrant and root
+    cat /vagrant/bashrc-mod.txt >> /home/vagrant/.bashrc && \
+    cat /vagrant/bashrc-mod.txt >> /root/.bashrc && \
+
+    #################
+    # set host name
+    hostname "vbox-docker-aws" && \
+    echo "vbox-docker-aws" > /etc/hostname && \
+    sed -i 's/localhost/localhost       vbox-docker-aws/' /etc/hosts
+    
   SHELL
 end
+
